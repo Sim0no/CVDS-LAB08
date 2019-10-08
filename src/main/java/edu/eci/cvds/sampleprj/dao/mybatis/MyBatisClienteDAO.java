@@ -18,13 +18,17 @@ import edu.eci.cvds.sampleprj.dao.PersistenceException;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.samples.entities.Item;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MyBatisClienteDAO implements ClienteDAO{
 
   @Inject
-  private ClienteMapper clienteMapper;    
+  private ClienteMapper clienteMapper;
+  
 
   @Override
   public void save(Cliente cliente) throws PersistenceException{
@@ -55,4 +59,37 @@ public class MyBatisClienteDAO implements ClienteDAO{
 
   }
 
+    @Override
+    public Cliente load(int documento) throws PersistenceException {
+        try{
+            return clienteMapper.consultarCliente(documento);
+        }
+        catch(org.apache.ibatis.exceptions.PersistenceException e){
+            throw new PersistenceException("Error al consultar el cliente "+documento,e);
+        }
+    }
+
+    @Override
+    public void saveAlquiler(Date fechaInicio, int clienteId, Item itemAlquilado, int numeroDias) {
+        Calendar calendario=Calendar.getInstance();
+        calendario.setTime(fechaInicio);
+        calendario.add(Calendar.DAY_OF_YEAR, numeroDias);
+        Date fechaFin=calendario.getTime();
+        clienteMapper.agregarItemRentadoACliente(clienteId,itemAlquilado.getId(),fechaInicio,fechaFin);
+    }
+
+    @Override
+    public void saveCliente(Cliente cliente) {
+        clienteMapper.insertarCliente(cliente);
+    }
+
+    @Override
+    public void saveVetado(long id, boolean estado) throws PersistenceException {
+        if (estado){
+           clienteMapper.actualizarBetado(id,1); 
+        }else{
+            clienteMapper.actualizarBetado(id,0);
+        }
+        
+    }
   }

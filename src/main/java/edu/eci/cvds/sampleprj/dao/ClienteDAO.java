@@ -5,6 +5,8 @@
  */
 package edu.eci.cvds.sampleprj.dao;
 import edu.eci.cvds.samples.entities.Cliente;
+import edu.eci.cvds.samples.entities.Item;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,7 +16,10 @@ import java.util.List;
 public interface ClienteDAO {
      
     public void save(Cliente cliente) throws PersistenceException;
-
+    public void saveVetado(long id, boolean estado) throws PersistenceException;
     public Cliente load(long documento) throws PersistenceException;
+    public Cliente load(int documento) throws PersistenceException;
     public List<Cliente> load() throws PersistenceException;
+    public void saveAlquiler(Date fechaInicio,int clienteId, Item itemAlquilado, int numeroDias);
+    public void saveCliente(Cliente cliente);
 }

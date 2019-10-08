@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper">
-	<insert parameterType="map" id="insertarItem">
+    <insert parameterType="map" id="insertarItem">
     	insert into VI_ITEMS(id,nombre,descripcion,fechaLanzamiento,tarifaxdia,formatorenta,genero,TIPOITEM_id) values(#{item.id},#{item.nombre},#{item.descripcion},#{item.fechaLanzamiento},#{item.tarifaxDia},#{item.formatoRenta},#{item.genero},#{item.tipo.id})
     </insert>
     <select parameterType="map" id="consultarItem" resultMap="ItemResult">
-		SELECT 
+	SELECT 
         i.id ,
         i.nombre ,
         i.descripcion,
@@ -20,9 +20,9 @@
         ti.descripcion as tipoitem_descripcion 
         from VI_ITEMS as i ,VI_TIPOITEM as ti
         where i.TIPOITEM_id=ti.id and i.id = #{idit}
-	</select>
-	<select parameterType="map" id="consultarItems" resultMap="ItemResult">
-		SELECT 
+    </select>
+    <select parameterType="map" id="consultarItems" resultMap="ItemResult">
+	SELECT 
         i.id ,
         i.nombre ,
         i.descripcion,
@@ -33,7 +33,30 @@
         ti.id as tipoitem_id,
         ti.descripcion as tipoitem_descripcion 
         from VI_ITEMS as i ,VI_TIPOITEM as ti
-	</select>
+    </select>
+    <select parameterType="map" id="consultarItemsD" resultMap="ItemResult">
+        SELECT itr.id,itr.fechainiciorenta,itr.fechafinrenta
+        FROM VI_ITEMRENTADO itr,VI_ITEMS i 
+        WHERE itr.ITEMS_id = i.id and not now() BETWEEN itr.fechainiciorenta and itr.fechafinrenta
+    </select>
+    <select parameterType="map" id="consultarMulta" resultMap="ItemResult">
+        SELECT DATEDIFF(#{fecha},itr.fechafinrenta)*i.tarifaxdia as valor,i.id
+        FROM VI_ITEMRENTADO itr,VI_ITEMS i
+        WHERE DATEDIFF(now(),itr.fechafinrenta) > 0  and i.id = #{itemid}
+    </select>
+    <select parameterType="map" id="consultarCostoTarifa" resultMap="ItemResult">
+        SELECT it.tarifaxdia*#{numdias}
+        FROM VI_ITEMS it
+        WHERE it.id=#{itemid}
+    </select>
+    <update>
+        UPDATE VI_ITEMS 
+        SET tarifaxdia = #{tarifa}
+        WHERE id = #{itemid}
+    </update>
+    <select parameterType="map" id="consultarValorMulta" resultMap="ItemResult">
+        SELECT tarifaxdia FROM VI_ITEMS WHERE id = #{itemid}
+    </select>
     <resultMap type='Item' id='ItemResult'>
 		<id property='id' column='id'/>
 		<result property='nombre' column='nombre'/>
@@ -43,6 +66,7 @@
 		<result property='formatoRenta' column='formatorenta'/>
 		<result property='genero' column='genero'/>
 		<association property='tipo' column='TIPOITEM_id' resultMap="edu.eci.cvds.sampleprj.dao.mybatis.mappers.TipoItemMapper.TipoItemResult" columnPrefix='tipoitem_'></association>
-	</resultMap>
+    </resultMap>
+       
     
 </mapper>

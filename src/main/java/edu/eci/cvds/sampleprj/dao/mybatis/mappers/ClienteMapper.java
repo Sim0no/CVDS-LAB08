@@ -33,8 +33,10 @@ public interface ClienteMapper {
      */
     public List<Cliente> consultarClientes();
 
-    public void insertarCliente(Cliente cliente);
+    public void insertarCliente(@Param("cliente")Cliente cliente);
 
     
-    
+    /*@nekakill*/
+
+    public void actualizarBetado(@Param("clienteid")long id,@Param("estado") int estado);
 }

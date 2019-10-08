@@ -7,6 +7,8 @@ package edu.eci.cvds.sampleprj.dao.mybatis;
 import edu.eci.cvds.sampleprj.dao.ClienteDAO;
 import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.sampleprj.dao.PersistenceException;
+import edu.eci.cvds.samples.entities.Item;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +34,21 @@ public class XXClienteDAO implements ClienteDAO{
 
     @Override
     public List<Cliente> load() throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void saveAlquiler(Date fechaInicio, int clienteId, Item itemAlquilado, int numeroDias) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void saveCliente(Cliente cliente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void saveVetado(long id, boolean estado) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

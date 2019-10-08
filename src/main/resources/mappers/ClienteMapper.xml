@@ -33,8 +33,8 @@
 	    left join VI_TIPOITEM as ti on i.TIPOITEM_id=ti.id 
 	</select>
 	<select parameterType="map" id="consultarCliente" resultMap="ClienteResult">
-		select 
-		c.nombre,
+            select 
+            c.nombre,
 	    c.documento,
 	    c.telefono,
 	    c.direccion,
@@ -62,16 +62,22 @@
     <insert parameterType="map" id="agregarItemRentadoACliente">
     	insert into VI_ITEMRENTADO(CLIENTES_documento,ITEMS_id,fechainiciorenta,fechafinrenta) values(#{idcli},#{iditem},#{fechinicio},#{fechfin})
     </insert>
-
-
-	<resultMap type='Cliente' id='ClienteResult'>
-		<id property='documento' column='documento'/>
-		<result property='nombre' column='nombre'/>
-		<result property='telefono' column='telefono'/>
-		<result property='direccion' column='direccion'/>
-		<result property='email' column='email'/>
-		<result property='vetado' column='vetado'/>
-		<collection property='rentados' javaType='ArrayList' ofType='ItemRentado' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper.ItemRentadoResult' columnPrefix="itemrentado_">
-		</collection>
-	</resultMap>
+    <insert parameterType="map" id="insertarCliente">
+        insert into VI_CLIENTES values(#{cliente.documento},#{cliente.nombre},#{cliente.telefono},#{cliente.direccion},#{cliente.email},#{cliente.vetado})
+    </insert>
+    <update parameterType="map" id="actualizarVetado">
+        UPDATE VI_CLIENTES
+        SET vetado = #{estado}
+        WHERE id = #{clienteid}
+    </update>
+    <resultMap type='Cliente' id='ClienteResult'>
+            <id property='documento' column='documento'/>
+            <result property='nombre' column='nombre'/>
+            <result property='telefono' column='telefono'/>
+            <result property='direccion' column='direccion'/>
+            <result property='email' column='email'/>
+            <result property='vetado' column='vetado'/>
+            <collection property='rentados' javaType='ArrayList' ofType='ItemRentado' resultMap='edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemRentadoMapper.ItemRentadoResult' columnPrefix="itemrentado_">
+            </collection>
+    </resultMap>
 </mapper>
