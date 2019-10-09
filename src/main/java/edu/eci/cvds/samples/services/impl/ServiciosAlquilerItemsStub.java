@@ -244,4 +244,9 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
     public List<Item> consultarItems() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void registrarTipoItem(TipoItem it) throws ExcepcionServiciosAlquiler {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

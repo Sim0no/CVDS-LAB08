@@ -15,6 +15,8 @@ import org.mybatis.guice.XMLMyBatisModule;
 import java.util.Optional;
 
 import static com.google.inject.Guice.createInjector;
+import edu.eci.cvds.sampleprj.dao.TipoItemDAO;
+import edu.eci.cvds.sampleprj.dao.mybatis.MyBatisTipoItemDAO;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
 import edu.eci.cvds.test.ServiciosAlquilerTest;
 import org.apache.ibatis.session.SqlSession;
@@ -33,6 +35,7 @@ public class ServiciosAlquilerFactory {
                setClassPathResource(pathResource);
                bind(ItemDAO.class).to(MyBatisItemDAO.class);
                bind(ClienteDAO.class).to(MyBatisClienteDAO.class);
+               bind(TipoItemDAO.class).to(MyBatisTipoItemDAO.class);
                bind(ServiciosAlquiler.class).to(ServiciosAlquilerImpl.class);
                
            }
