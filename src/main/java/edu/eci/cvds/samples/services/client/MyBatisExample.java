@@ -38,7 +38,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.ibatis.io.Resources;
@@ -81,20 +81,14 @@ public class MyBatisExample {
      */
     public static void main(String args[]) throws SQLException, ExcepcionServiciosAlquiler {
         
-        probarServiciosAlquiler();
-        
+       probarServiciosAlquiler();
+       System.out.println(serviciosAlquiler.consultarCliente(321817)); // Punto 9 del laboratorio
     }
     private static void probarServiciosAlquiler() throws ExcepcionServiciosAlquiler {
         probarServiciosCliente();
         probarServiciosItem();
+       
         
-    }
-    public static Date convertirFecha(String fecha){
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
-        } catch (ParseException ex) {
-            return null;
-        }        
     }
     public static void imprimirEspacios(){
         System.out.println();
@@ -111,7 +105,7 @@ public class MyBatisExample {
         System.out.println(serviciosAlquiler.consultarItemsDisponibles());
         imprimirEspacios();
         TipoItem tipoitem = new TipoItem(2, "Accion");
-        Item item1 = new Item(tipoitem, 980, "White widow", "Widow Blanco", convertirFecha("2019-07-15"), 3500, "Mensual", "Fantasia");
+        Item item1 = new Item(tipoitem, 980, "White widow", "Widow Blanco", new Date(20190715), 3500, "Mensual", "Fantasia");
         System.out.println("Item insertado");
         serviciosAlquiler.registrarItem(item1);
         System.out.println(serviciosAlquiler.consultarItem(980));
@@ -123,24 +117,24 @@ public class MyBatisExample {
     }
 
     private static void probarServiciosCliente() throws ExcepcionServiciosAlquiler {
-        /*
+        
         System.out.println("Consultado todos los clientes");
         System.out.println(serviciosAlquiler.consultarClientes());
         imprimirEspacios();
         ArrayList<ItemRentado> rentadosDefault = new ArrayList<>(); 
-        Cliente cliente1 = new Cliente("Black tepest",23199, "2338900", "Cr1#22a44", "Dracula@quek.com", false,rentadosDefault);
+        Cliente cliente1 = new Cliente("Saladoman",100100, "453322", "Cr1#22a43", "vlok@quek.com", false,rentadosDefault);
         System.out.println("Cliente insertado");
         serviciosAlquiler.registrarCliente(cliente1);
-        System.out.println(serviciosAlquiler.consultarCliente(23199));
+        System.out.println(serviciosAlquiler.consultarCliente(100100));
         imprimirEspacios();
-        serviciosAlquiler.vetarCliente(23145, true);
+        serviciosAlquiler.vetarCliente(100100, true);
         System.out.println("Cliente vetado");
-        System.out.println(serviciosAlquiler.consultarCliente(23199));
+        System.out.println(serviciosAlquiler.consultarCliente(100100));
         TipoItem tipoitem = new TipoItem(2, "Accion");
-        Item item1 = new Item(tipoitem, 983, "Black widow", "negro Blanco", convertirFecha("2019-07-15"), 3500, "Mensual", "Fantasia");
-        serviciosAlquiler.registrarAlquilerCliente((java.sql.Date) convertirFecha("2019-10-09"), 23199,item1, 30);
-        serviciosAlquiler.consultarItemsCliente(23199);
-        */
+        Item item1 = new Item(tipoitem, 233, "la caida del halcon", "helicoptero", new Date(20190815), 3500, "Mensual", "Fantasia");
+        serviciosAlquiler.registrarAlquilerCliente(new Date(2019109), 100100,item1, 30);
+        serviciosAlquiler.consultarItemsCliente(100100);
+        
     }
 
 }
