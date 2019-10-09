@@ -68,7 +68,7 @@
     <update parameterType="map" id="actualizarVetado">
         UPDATE VI_CLIENTES
         SET vetado = #{estado}
-        WHERE id = #{clienteid}
+        WHERE documento = #{clienteid}
     </update>
     <resultMap type='Cliente' id='ClienteResult'>
             <id property='documento' column='documento'/>

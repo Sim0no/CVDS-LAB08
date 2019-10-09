@@ -86,9 +86,9 @@ public class MyBatisClienteDAO implements ClienteDAO{
     @Override
     public void saveVetado(long id, boolean estado) throws PersistenceException {
         if (estado){
-           clienteMapper.actualizarBetado(id,1); 
+           clienteMapper.actualizarVetado(id,1); 
         }else{
-            clienteMapper.actualizarBetado(id,0);
+            clienteMapper.actualizarVetado(id,0);
         }
         
     }

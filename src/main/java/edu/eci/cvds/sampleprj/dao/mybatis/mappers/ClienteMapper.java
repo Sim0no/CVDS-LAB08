@@ -38,5 +38,5 @@ public interface ClienteMapper {
     
     /*@nekakill*/
 
-    public void actualizarBetado(@Param("clienteid")long id,@Param("estado") int estado);
+    public void actualizarVetado(@Param("clienteid")long id,@Param("estado") int estado);
 }

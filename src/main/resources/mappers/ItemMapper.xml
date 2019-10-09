@@ -49,7 +49,7 @@
         FROM VI_ITEMS it
         WHERE it.id=#{itemid}
     </select>
-    <update>
+    <update parameterType="map" id="actualizarTarifa">
         UPDATE VI_ITEMS 
         SET tarifaxdia = #{tarifa}
         WHERE id = #{itemid}

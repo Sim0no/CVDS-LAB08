@@ -18,15 +18,26 @@ package edu.eci.cvds.samples.services.client;
 
 
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import edu.eci.cvds.sampleprj.dao.ClienteDAO;
+import edu.eci.cvds.sampleprj.dao.ItemDAO;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ClienteMapper;
 import edu.eci.cvds.sampleprj.dao.mybatis.mappers.ItemMapper;
+import edu.eci.cvds.samples.entities.Cliente;
 import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.entities.Item;
+import edu.eci.cvds.samples.entities.ItemRentado;
+import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
+import edu.eci.cvds.samples.services.ServiciosAlquiler;
+import edu.eci.cvds.samples.services.ServiciosAlquilerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,12 +52,15 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  */
 public class MyBatisExample {
 
+
     /**
      * Método que construye una fábrica de sesiones de MyBatis a partir del
      * archivo de configuración ubicado en src/main/resources
      *
      * @return instancia de SQLSessionFactory
      */
+    private static ServiciosAlquiler serviciosAlquiler = ServiciosAlquilerFactory.getServiciosAlquiler();
+    
     public static SqlSessionFactory getSqlSessionFactory() {
         SqlSessionFactory sqlSessionFactory = null;
         if (sqlSessionFactory == null) {
@@ -60,52 +74,19 @@ public class MyBatisExample {
         }
         return sqlSessionFactory;
     }
-
     /**
      * Programa principal de ejempo de uso de MyBATIS
      * @param args
      * @throws SQLException 
      */
-    public static void main(String args[]) throws SQLException {
-        SqlSessionFactory sessionfact = getSqlSessionFactory();
-
-        SqlSession sqlss = sessionfact.openSession();
-
+    public static void main(String args[]) throws SQLException, ExcepcionServiciosAlquiler {
         
-        //Crear el mapper y usarlo: 
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
-        ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
-        imprimirEspacios();
-        ItemMapper im = sqlss.getMapper(ItemMapper.class);
-        System.out.println("--------------Consultar Clientes--------");
-        System.out.println(cm.consultarClientes());
-        imprimirEspacios();
-        System.out.println("--------------Consultar Cliente---------");
-        System.out.println(cm.consultarCliente(90));        
-        imprimirEspacios();
-        cm.agregarItemRentadoACliente(4,5,convertirFecha("2019-10-04"),convertirFecha("2019-10-11"));
-        System.out.println("--------------Consultar Cliente id--------");
-        System.out.println(cm.consultarCliente(4));  
-        TipoItem holaMundoItem = new TipoItem(12,"hola mundo");
-        Item aItem;
-        aItem = new Item(holaMundoItem,346,"La patada del mocho 4",
-                "mas mocho que nunca",
-                convertirFecha("2007-08-07"), 30,
-                "Semanal",
-                "Ciencia ficcion"            
-                );
-        im.insertarItem(aItem);
-        imprimirEspacios();
-        System.out.println("--------------Consultar Items--------");
-        System.out.println(im.consultarItems());
-        imprimirEspacios();
-        System.out.println("--------------Consultar Item id--------");
-        System.out.println(im.consultarItem(345));  
-        sqlss.commit();
-        sqlss.close();
-
+        probarServiciosAlquiler();
         
+    }
+    private static void probarServiciosAlquiler() throws ExcepcionServiciosAlquiler {
+        probarServiciosCliente();
+        probarServiciosItem();
         
     }
     public static Date convertirFecha(String fecha){
@@ -119,6 +100,47 @@ public class MyBatisExample {
         System.out.println();
         System.out.println();
         System.out.println();
+    }
+
+    private static void probarServiciosItem() throws ExcepcionServiciosAlquiler {
+        /*
+        System.out.println("Consultado todos los items");
+        System.out.println(serviciosAlquiler.consultarItems());
+        imprimirEspacios();
+        System.out.println("Consultado solo items disponibles");
+        System.out.println(serviciosAlquiler.consultarItemsDisponibles());
+        imprimirEspacios();
+        TipoItem tipoitem = new TipoItem(2, "Accion");
+        Item item1 = new Item(tipoitem, 980, "White widow", "Widow Blanco", convertirFecha("2019-07-15"), 3500, "Mensual", "Fantasia");
+        System.out.println("Item insertado");
+        serviciosAlquiler.registrarItem(item1);
+        System.out.println(serviciosAlquiler.consultarItem(980));
+        
+        serviciosAlquiler.actualizarTarifaItem(980, 400);
+        serviciosAlquiler.consultarCostoAlquiler(980, 15);
+        serviciosAlquiler.valorMultaRetrasoxDia(980);
+        */
+    }
+
+    private static void probarServiciosCliente() throws ExcepcionServiciosAlquiler {
+        /*
+        System.out.println("Consultado todos los clientes");
+        System.out.println(serviciosAlquiler.consultarClientes());
+        imprimirEspacios();
+        ArrayList<ItemRentado> rentadosDefault = new ArrayList<>(); 
+        Cliente cliente1 = new Cliente("Black tepest",23199, "2338900", "Cr1#22a44", "Dracula@quek.com", false,rentadosDefault);
+        System.out.println("Cliente insertado");
+        serviciosAlquiler.registrarCliente(cliente1);
+        System.out.println(serviciosAlquiler.consultarCliente(23199));
+        imprimirEspacios();
+        serviciosAlquiler.vetarCliente(23145, true);
+        System.out.println("Cliente vetado");
+        System.out.println(serviciosAlquiler.consultarCliente(23199));
+        TipoItem tipoitem = new TipoItem(2, "Accion");
+        Item item1 = new Item(tipoitem, 983, "Black widow", "negro Blanco", convertirFecha("2019-07-15"), 3500, "Mensual", "Fantasia");
+        serviciosAlquiler.registrarAlquilerCliente((java.sql.Date) convertirFecha("2019-10-09"), 23199,item1, 30);
+        serviciosAlquiler.consultarItemsCliente(23199);
+        */
     }
 
 }

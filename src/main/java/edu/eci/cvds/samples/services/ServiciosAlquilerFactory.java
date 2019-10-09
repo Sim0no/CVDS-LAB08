@@ -16,6 +16,8 @@ import java.util.Optional;
 
 import static com.google.inject.Guice.createInjector;
 import edu.eci.cvds.samples.services.impl.ServiciosAlquilerItemsStub;
+import edu.eci.cvds.test.ServiciosAlquilerTest;
+import org.apache.ibatis.session.SqlSession;
 
 public class ServiciosAlquilerFactory {
 
@@ -23,7 +25,7 @@ public class ServiciosAlquilerFactory {
 
    private static Optional<Injector> optInjector;
 
-   private Injector myBatisInjector(String env, String pathResource) {
+   private static Injector myBatisInjector(String env, String pathResource) {
        return createInjector(new XMLMyBatisModule() {
            @Override
            protected void initialize() {
@@ -31,7 +33,8 @@ public class ServiciosAlquilerFactory {
                setClassPathResource(pathResource);
                bind(ItemDAO.class).to(MyBatisItemDAO.class);
                bind(ClienteDAO.class).to(MyBatisClienteDAO.class);
-               bind(ServiciosAlquiler.class).to(ServiciosAlquilerItemsStub.class);
+               bind(ServiciosAlquiler.class).to(ServiciosAlquilerImpl.class);
+               
            }
        });
    }
@@ -40,7 +43,7 @@ public class ServiciosAlquilerFactory {
        optInjector = Optional.empty();
    }
 
-   public ServiciosAlquiler getServiciosAlquiler(){
+   public static ServiciosAlquiler getServiciosAlquiler(){
        if (!optInjector.isPresent()) {
            optInjector = Optional.of(myBatisInjector("development","mybatis-config.xml"));
        }
@@ -49,7 +52,7 @@ public class ServiciosAlquilerFactory {
    }
 
 
-   public ServiciosAlquiler getServiciosAlquilerTesting(){
+   public static ServiciosAlquiler getServiciosAlquilerTesting(){
        if (!optInjector.isPresent()) {
            optInjector = Optional.of(myBatisInjector("test","mybatis-config-h2.xml"));
        }
