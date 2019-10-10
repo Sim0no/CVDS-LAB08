@@ -16,9 +16,9 @@ public interface ItemMapper {
     
     public List<Item> consultarItems();        
     
-    public Item consultarItem(@Param("idit")int id);
-    
-    public void insertarItem(@Param("item")Item it);
+    public Item consultarItem(@Param("idit") int id);
+     
+    public void insertarItem(@Param("item") Item it);
     
     public List<Item> consultarItemsD();
     public long consultarMulta(@Param("itemid")int itemid,@Param("fecha")Date fechaDevolucion);

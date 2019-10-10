@@ -27,6 +27,7 @@ public class ServiciosAlquilerFactory {
    private static Optional<Injector> optInjector;
 
    private static Injector myBatisInjector(String env, String pathResource) {
+
        return createInjector(new XMLMyBatisModule() {
            @Override
            protected void initialize() {
@@ -55,7 +56,9 @@ public class ServiciosAlquilerFactory {
 
    public static ServiciosAlquiler getServiciosAlquilerTesting(){
        if (!optInjector.isPresent()) {
+           System.out.println("entro");
            optInjector = Optional.of(myBatisInjector("test","mybatis-config-h2.xml"));
+           System.out.println("entro");
        }
 
        return optInjector.get().getInstance(ServiciosAlquiler.class);

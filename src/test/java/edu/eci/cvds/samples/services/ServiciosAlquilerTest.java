@@ -18,26 +18,50 @@ import org.junit.Assert;
 public class ServiciosAlquilerTest {
 
 
-    ServiciosAlquiler serviciosAlquiler;
-    
-    public ServiciosAlquilerTest() {
-        serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
-    }
+    ServiciosAlquiler serviciosAlquiler = ServiciosAlquilerFactory.getServiciosAlquilerTesting();
+    ArrayList<ItemRentado> rentadosDefault = new ArrayList<>(); 
+   
 
     @Before
     public void setUp() {
+        
     }
 
 
     @Test
     public void deberiaConsultarCliente(){
         try {
-            serviciosAlquiler = ServiciosAlquilerFactory.getServiciosAlquilerTesting();
-            serviciosAlquiler.consultarCliente(3218171);
+            serviciosAlquiler.consultarCliente(2233);
             Assert.assertTrue(true);
         } catch (ExcepcionServiciosAlquiler ex) {
             Assert.fail();
         }
     }
+    @Test
+    public void deberiaInsertarCliente() throws ExcepcionServiciosAlquiler{
+        
+        try{
+            serviciosAlquiler=ServiciosAlquilerFactory.getServiciosAlquilerTesting();
+            serviciosAlquiler.registrarCliente(new Cliente("Saladoan",10010, "453322", "Cr1#22a43", "vlok@qek.com", false,rentadosDefault));
+            Assert.assertTrue(true);
+        }catch (ExcepcionServiciosAlquiler ex){
+            Assert.fail();
+        }
+        
+    }
+    @Test
+    public void deberiaVetarCliente() throws ExcepcionServiciosAlquiler{
+        try{
+            serviciosAlquiler.registrarCliente(new Cliente("Saladoan",10010, "453322", "Cr1#22a43", "vlok@qek.com", false,rentadosDefault));
+            serviciosAlquiler.vetarCliente(10010, true);
+            boolean valor = serviciosAlquiler.consultarCliente(10010).isVetado();
+            Assert.assertEquals(valor, true);
+        }catch (ExcepcionServiciosAlquiler ex){
+            Assert.fail();
+        }
+    }
+   
+    
+    
 
 }
