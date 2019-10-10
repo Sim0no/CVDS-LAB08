@@ -61,19 +61,6 @@ public class MyBatisExample {
      */
     private static ServiciosAlquiler serviciosAlquiler = ServiciosAlquilerFactory.getServiciosAlquiler();
     
-    public static SqlSessionFactory getSqlSessionFactory() {
-        SqlSessionFactory sqlSessionFactory = null;
-        if (sqlSessionFactory == null) {
-            InputStream inputStream;
-            try {
-                inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-                sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            } catch (IOException e) {
-                throw new RuntimeException(e.getCause());
-            }
-        }
-        return sqlSessionFactory;
-    }
     /**
      * Programa principal de ejempo de uso de MyBATIS
      * @param args

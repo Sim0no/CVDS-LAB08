@@ -133,6 +133,7 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
      * @throws ExcepcionServiciosAlquiler
      */
     @Override
+    @Transactional
    public void registrarTipoItem(TipoItem it) throws ExcepcionServiciosAlquiler{
        try {
            tipoItemDAO.save(it);
@@ -149,7 +150,11 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
    @Transactional
    @Override
    public void registrarCliente(Cliente c) throws ExcepcionServiciosAlquiler {
-       clienteDAO.saveCliente(c);
+       try {
+           clienteDAO.save(c);
+       } catch (PersistenceException ex) {
+           throw new ExcepcionServiciosAlquiler("Error al registrar el cliente",ex);
+       }
        
    }
 

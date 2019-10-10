@@ -1,4 +1,4 @@
-package edu.eci.cvds.test;
+package edu.eci.cvds.samples.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +17,9 @@ import org.junit.Assert;
 
 public class ServiciosAlquilerTest {
 
-    @Inject
-    private SqlSession sqlSession;
 
     ServiciosAlquiler serviciosAlquiler;
-
+    
     public ServiciosAlquilerTest() {
         serviciosAlquiler = ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
     }
@@ -30,20 +28,16 @@ public class ServiciosAlquilerTest {
     public void setUp() {
     }
 
+
     @Test
-    public void emptyDB() {
-        for(int i = 0; i < 100; i += 10) {
-            boolean r = false;
-            try {
-                Cliente cliente = serviciosAlquiler.consultarCliente(i);
-            } catch(ExcepcionServiciosAlquiler e) {
-                r = true;
-            } catch(IndexOutOfBoundsException e) {
-                r = true;
-            }
-            // Validate no Client was found;
-            Assert.assertTrue(r);
-        };
+    public void deberiaConsultarCliente(){
+        try {
+            serviciosAlquiler = ServiciosAlquilerFactory.getServiciosAlquilerTesting();
+            serviciosAlquiler.consultarCliente(3218171);
+            Assert.assertTrue(true);
+        } catch (ExcepcionServiciosAlquiler ex) {
+            Assert.fail();
+        }
     }
 
 }

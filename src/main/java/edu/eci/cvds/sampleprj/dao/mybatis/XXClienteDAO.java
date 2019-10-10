@@ -22,10 +22,7 @@ public class XXClienteDAO implements ClienteDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Cliente load(int documento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     @Override
     public Cliente load(long documento) throws PersistenceException {
@@ -39,11 +36,6 @@ public class XXClienteDAO implements ClienteDAO{
 
     @Override
     public void saveAlquiler(Date fechaInicio, int clienteId, Item itemAlquilado, int numeroDias) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void saveCliente(Cliente cliente) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

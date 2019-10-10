@@ -59,15 +59,6 @@ public class MyBatisClienteDAO implements ClienteDAO{
 
   }
 
-    @Override
-    public Cliente load(int documento) throws PersistenceException {
-        try{
-            return clienteMapper.consultarCliente(documento);
-        }
-        catch(org.apache.ibatis.exceptions.PersistenceException e){
-            throw new PersistenceException("Error al consultar el cliente "+documento,e);
-        }
-    }
 
     @Override
     public void saveAlquiler(Date fechaInicio, int clienteId, Item itemAlquilado, int numeroDias) {
@@ -78,10 +69,6 @@ public class MyBatisClienteDAO implements ClienteDAO{
         clienteMapper.agregarItemRentadoACliente(clienteId,itemAlquilado.getId(),fechaInicio,fechaFin);
     }
 
-    @Override
-    public void saveCliente(Cliente cliente) {
-        clienteMapper.insertarCliente(cliente);
-    }
 
     @Override
     public void saveVetado(long id, boolean estado) throws PersistenceException {
