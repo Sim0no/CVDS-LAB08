@@ -45,9 +45,9 @@
         WHERE DATEDIFF(#{fecha},itr.fechafinrenta) > 0  and i.id = #{itemid}
     </select>
     <select parameterType="map" id="consultarCostoTarifa" resultMap="ItemResult">
-        SELECT it.tarifaxdia*#{numdias}
-        FROM VI_ITEMS it
-        WHERE it.id=#{itemid}
+        SELECT tarifaxdia*#{numdias}
+        FROM VI_ITEMS 
+        WHERE id=#{itemid}
     </select>
     <update parameterType="map" id="actualizarTarifa">
         UPDATE VI_ITEMS 

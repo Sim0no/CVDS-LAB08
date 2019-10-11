@@ -40,11 +40,11 @@ xmlns:f="http://java.sun.com/jsf/core">
                 
                 <p:inputText id="Dias" type="int" binding="#{dias}"/>
 
-                <p:outputLabel for="Precio" value="Precio: #{servAlquiler.costo}" />
-                
-                
-                <p:commandButton update="formularioAlq" class="Button" actionListener="#{servAlquiler.registrarAlquiler(servAlquiler.getClienteSeleccionado.getDocumento(),iditem.value,dias.value)}" value="Registrar Cliente"/>
-                <p:commandButton update="formularioAlq" class="button" actionListener="#{servAlquiler.consultarCostoRenta(iditem.value,dias.value)}" value="Consultar precio"/>
+                <p:outputLabel value="Precio: " />
+                <p:outputLabel value="#{servAlquiler.costo}" />
+                 
+                <p:commandButton update="formularioAlq" class="Button" actionListener="#{servAlquiler.registrarAlquiler(servAlquiler.clienteSeleccionado.documento,iditem.value,dias.value)}" value="Registrar Alquiler"/>
+                <p:commandButton update="formularioAlq" class="Button" actionListener="#{servAlquiler.consultarCostoRenta(iditem.value,dias.value)}" value="Consultar precio"/>
             </h:panelGrid>
          </h:form>
         

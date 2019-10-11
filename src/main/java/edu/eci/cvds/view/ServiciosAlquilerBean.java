@@ -63,7 +63,7 @@ public class ServiciosAlquilerBean extends BasePageBean{
             Logger.getLogger(ServiciosAlquilerBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void consultarCosto(int iditem,int numerodias){
+    public void consultarCostoRenta(int iditem,int numerodias){
         try {
             costo = serviciosAlquiler.consultarCostoAlquiler(iditem, numerodias);
         } catch (ExcepcionServiciosAlquiler ex) {
