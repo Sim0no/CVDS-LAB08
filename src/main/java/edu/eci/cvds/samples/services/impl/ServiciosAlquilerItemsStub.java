@@ -128,22 +128,8 @@ public class ServiciosAlquilerItemsStub implements ServiciosAlquiler {
    }
 
    @Override
-   public void registrarAlquilerCliente(Date date,long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
+   public void registrarAlquilerCliente(long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
 
-       LocalDate ld=date.toLocalDate();
-       LocalDate ld2=ld.plusDays(numdias);
-
-       ItemRentado ir=new ItemRentado(0,item,date,java.sql.Date.valueOf(ld2));
-
-       if (clientes.containsKey(docu)) {
-           Cliente c = clientes.get(docu);
-           c.getRentados().add(ir);
-           itemsDisponibles.remove(ir.getItem().getId());
-           itemsrentados.put(item.getId(), ir);
-           mapaPrestamosPorIdCliente.put(item.getId(),docu);
-       } else {
-           throw new ExcepcionServiciosAlquiler("No existe el cliente con el documento " + docu);
-       }
    }
 
    @Override

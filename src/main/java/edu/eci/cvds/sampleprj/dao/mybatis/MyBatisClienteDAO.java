@@ -66,6 +66,7 @@ public class MyBatisClienteDAO implements ClienteDAO{
         calendario.setTime(fechaInicio);
         calendario.add(Calendar.DAY_OF_YEAR, numeroDias);
         Date fechaFin=calendario.getTime();
+        
         clienteMapper.agregarItemRentadoACliente(clienteId,itemAlquilado.getId(),fechaInicio,fechaFin);
     }
 

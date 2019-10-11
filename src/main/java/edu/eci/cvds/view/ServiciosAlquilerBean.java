@@ -26,10 +26,11 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="servAlquiler")
 @SessionScoped
 public class ServiciosAlquilerBean extends BasePageBean{
-    ArrayList<ItemRentado> rentadosDefault = new ArrayList<>(); 
+    private ArrayList<ItemRentado> rentadosDefault = new ArrayList<>(); 
     @Inject
-    ServiciosAlquiler serviciosAlquiler;
-    Cliente clienteSeleccionado;
+    private ServiciosAlquiler serviciosAlquiler;
+    private Cliente clienteSeleccionado;
+    private long costo;
     public Cliente consultarCliente(long id){
         try {
             return serviciosAlquiler.consultarCliente(id);
@@ -53,12 +54,34 @@ public class ServiciosAlquilerBean extends BasePageBean{
         }
     }
     
+    public void registrarAlquiler(long docu, int iditem, int numdias){
+        try {
+            Item item;
+            item = serviciosAlquiler.consultarItem(iditem);
+            serviciosAlquiler.registrarAlquilerCliente(docu,item,numdias);
+        } catch (ExcepcionServiciosAlquiler ex) {
+            Logger.getLogger(ServiciosAlquilerBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void consultarCosto(int iditem,int numerodias){
+        try {
+            costo = serviciosAlquiler.consultarCostoAlquiler(iditem, numerodias);
+        } catch (ExcepcionServiciosAlquiler ex) {
+            costo = 0;
+        }
+    }
     public void setClienteSeleccionado(Cliente cliente){
         this.clienteSeleccionado = cliente;
     }
     public Cliente getClienteSeleccionado(){
         return this.clienteSeleccionado;
     }
-
+    public void setCosto(long costo){
+        this.costo = costo;
+    }
+    public long getCosto(){
+        return costo;
+    }
+    
     
 }

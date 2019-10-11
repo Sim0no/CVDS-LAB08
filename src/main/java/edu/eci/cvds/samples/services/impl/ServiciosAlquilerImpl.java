@@ -15,6 +15,7 @@ import edu.eci.cvds.samples.entities.TipoItem;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -145,8 +146,9 @@ public class ServiciosAlquilerImpl implements ServiciosAlquiler {
 
    @Override
    @Transactional
-   public void registrarAlquilerCliente(Date date, long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
-       clienteDAO.saveAlquiler(date, (int) docu, item, numdias);
+   public void registrarAlquilerCliente(long docu, Item item, int numdias) throws ExcepcionServiciosAlquiler {
+       Date actual= new Date(Calendar.getInstance().getTime().getTime());
+       clienteDAO.saveAlquiler(actual, (int) docu, item, numdias);
    }
    @Transactional
    @Override

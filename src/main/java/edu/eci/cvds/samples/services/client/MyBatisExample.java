@@ -119,7 +119,7 @@ public class MyBatisExample {
         System.out.println(serviciosAlquiler.consultarCliente(100100));
         TipoItem tipoitem = new TipoItem(2, "Accion");
         Item item1 = new Item(tipoitem, 233, "la caida del halcon", "helicoptero", new Date(20190815), 3500, "Mensual", "Fantasia");
-        serviciosAlquiler.registrarAlquilerCliente(new Date(2019109), 100100,item1, 30);
+        serviciosAlquiler.registrarAlquilerCliente(100100,item1, 30);
         serviciosAlquiler.consultarItemsCliente(100100);
         
     }

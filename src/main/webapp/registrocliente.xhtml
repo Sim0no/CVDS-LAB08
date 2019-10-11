@@ -42,7 +42,7 @@ xmlns:f="http://java.sun.com/jsf/core">
                 </p:column>
 
                 <f:facet name="footer">
-                    <h:commandButton action = "#{navigationController.moveToPageAlquiler()}" value = "Buscar" />; 
+                    <h:commandButton action = "#{navigationController.moveToPageAlquiler()}" value = "Buscar" />
                 </f:facet>
 
             </p:dataTable>
@@ -67,7 +67,7 @@ xmlns:f="http://java.sun.com/jsf/core">
                     
                     <p:commandButton update="formulario" class="Button" actionListener="#{servAlquiler.registrarCliente(documento.value,nombre.value,telefono.value,direccion.value,email.value)}" value="Registrar Cliente"/>
                 </div>
-
+                
             </h:panelGrid>
 
             
