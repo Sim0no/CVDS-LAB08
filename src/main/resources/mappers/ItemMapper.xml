@@ -42,7 +42,7 @@
     <select parameterType="map" id="consultarMulta" resultMap="ItemResult">
         SELECT DATEDIFF(#{fecha},itr.fechafinrenta)*i.tarifaxdia as valor,i.id
         FROM VI_ITEMRENTADO itr,VI_ITEMS i
-        WHERE DATEDIFF(now(),itr.fechafinrenta) > 0  and i.id = #{itemid}
+        WHERE DATEDIFF(#{fecha},itr.fechafinrenta) > 0  and i.id = #{itemid}
     </select>
     <select parameterType="map" id="consultarCostoTarifa" resultMap="ItemResult">
         SELECT it.tarifaxdia*#{numdias}

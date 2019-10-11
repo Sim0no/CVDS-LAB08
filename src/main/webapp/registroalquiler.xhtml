@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:p="http://primefaces.org/ui"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link rel="stylesheet" href="style.css"></link>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arvo" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    </h:head>
+    <h:body>
+        <p:dataTable id="singleDT" var="cliente" value="#{servAlquiler.consultarClientes()}" 
+                     selectionMode="single" selection="#{servAlquiler.clienteSeleccionado}" 
+                     rowKey="#{car.id}">
+            <f:facet name="header">
+                Multiple with Meta and Shift keys
+            </f:facet>
+            <p:column headerText="Id">
+                <h:outputText value="#{car.id}" />
+            </p:column>
+            <p:column headerText="Year">
+                <h:outputText value="#{car.year}" />
+            </p:column>
+            <p:column headerText="Brand">
+                <h:outputText value="#{car.brand}" />
+            </p:column>
+            <p:column headerText="Color">
+                <h:outputText value="#{car.color}" />
+            </p:column>
+            <f:facet name="footer">
+                <p:commandButton process="multipleDT" update=":form:multiCarDetail" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+            </f:facet>
+        </p:dataTable>
+    </h:body>
+</html>
