@@ -12,27 +12,29 @@ xmlns:f="http://java.sun.com/jsf/core">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     </h:head>
     <h:body>
-        <p:dataTable id="singleDT" var="cliente" value="#{servAlquiler.consultarClientes()}" 
-                     selectionMode="single" selection="#{servAlquiler.clienteSeleccionado}" 
-                     rowKey="#{car.id}">
-            <f:facet name="header">
-                Multiple with Meta and Shift keys
-            </f:facet>
-            <p:column headerText="Id">
-                <h:outputText value="#{car.id}" />
-            </p:column>
-            <p:column headerText="Year">
-                <h:outputText value="#{car.year}" />
-            </p:column>
-            <p:column headerText="Brand">
-                <h:outputText value="#{car.brand}" />
-            </p:column>
-            <p:column headerText="Color">
-                <h:outputText value="#{car.color}" />
-            </p:column>
-            <f:facet name="footer">
-                <p:commandButton process="multipleDT" update=":form:multiCarDetail" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
-            </f:facet>
-        </p:dataTable>
+        <p:dataTable  var="itemRentado" value="#{servAlquiler.getClienteSeleccionado().rentados}" 
+                         selectionMode="single" 
+                         paginator="true"
+                         paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}"
+                         rows="8"
+                         rowKey="#{itemRentado.id}">
+                         
+                <f:facet name="header">
+                    Cliente #{servAlquiler.getClienteSeleccionado().nombre}
+                </f:facet>
+                <p:column headerText="Item Rentado">
+                    <h:outputText value="#{itemRentado.item.nombre}" />
+                </p:column>
+                <p:column headerText="Fecha Inicio Renta">
+                    <h:outputText value="#{itemRentado.fechainiciorenta}" />
+                </p:column>    
+                <p:column headerText="Fecha Fin Renta">
+                    <h:outputText value="#{itemRentado.fechafinrenta}" />
+                </p:column>  
+                <f:facet name="footer">
+                    <h:commandButton action = "#{navigationController.moveToPageCliente()}" value = "Home" />; 
+                </f:facet>
+
+            </p:dataTable>
     </h:body>
 </html>

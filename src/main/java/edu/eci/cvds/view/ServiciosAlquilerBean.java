@@ -11,6 +11,7 @@ import edu.eci.cvds.samples.entities.Item;
 import edu.eci.cvds.samples.entities.ItemRentado;
 import edu.eci.cvds.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.cvds.samples.services.ServiciosAlquiler;
+import static java.time.LocalDate.now;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +59,6 @@ public class ServiciosAlquilerBean extends BasePageBean{
     public Cliente getClienteSeleccionado(){
         return this.clienteSeleccionado;
     }
-       
+
     
 }

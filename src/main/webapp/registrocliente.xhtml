@@ -42,7 +42,7 @@ xmlns:f="http://java.sun.com/jsf/core">
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton id="buscarCliente"  icon="pi pi-search" value="Buscar"  />
+                    <h:commandButton action = "#{navigationController.moveToPageAlquiler()}" value = "Buscar" />; 
                 </f:facet>
 
             </p:dataTable>
@@ -64,11 +64,13 @@ xmlns:f="http://java.sun.com/jsf/core">
                 <p:inputText id="Email" type="String" binding="#{email}"/>
 
                 <div class="divButton">
+                    
                     <p:commandButton update="formulario" class="Button" actionListener="#{servAlquiler.registrarCliente(documento.value,nombre.value,telefono.value,direccion.value,email.value)}" value="Registrar Cliente"/>
                 </div>
 
             </h:panelGrid>
 
+            
        </h:form>
         
         
